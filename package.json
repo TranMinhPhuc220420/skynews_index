@@ -1,8 +1,8 @@
 {
-  "name": "template-ext",
+  "name": "itunes-apple",
   "product": "ext",
   "version": "0.0.1",
-  "description": "template-ext description for Ext JS app templateExt",
+  "description": "itunes-apple description for Ext JS app itunesApple",
   "repository": {
     "type": "git",
     "url": "https://github.com/"

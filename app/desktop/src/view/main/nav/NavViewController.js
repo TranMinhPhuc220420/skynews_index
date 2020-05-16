@@ -1,4 +1,4 @@
-Ext.define("templateExt.view.main.nav.NavViewController", {
+Ext.define("itunesApple.view.main.nav.NavViewController", {
   extend: "Ext.app.ViewController",
   alias: "controller.navviewcontroller",
 

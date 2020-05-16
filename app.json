@@ -1,9 +1,9 @@
 {
-  "name": "templateExt",
-  "namespace": "templateExt",
+  "name": "itunesApple",
+  "namespace": "itunesApple",
   "version": "1.0.0.0",
   "framework": "ext",
-  "template": "moderndesktop",
+  "template": "moderndesktopminimal",
   "indexHtmlPath": "index.html",
   "requires": [
     "font-awesome"
@@ -22,30 +22,24 @@
     }
   },
 
-  "classpath": ["app/shared/src","app/${build.id}/src"],
-  "overrides": ["app/shared/overrides","app/${build.id}/overrides"],
+  "classpath": ["app/${build.id}/src"],
+  "overrides": ["app/${build.id}/overrides"],
 
   "sass": {
-    "namespace": "templateExt",
-
+    "namespace": "itunesApple",
     "etc": [
       "sass/etc/all.scss"
     ],
     "var": [
-      "app/shared/sass/var.scss",
       "app/${build.id}/sass/var.scss"
     ],
     "src": [
-      "app/shared/src/sass/src.scss",
       "app/${build.id}/sass/src.scss"
     ]
   },
 
   "resources": [
-    { "path": "resources", "output": "shared" }
-
-    ,{ "path": "resources/${build.id}" }
-
+    { "path": "resources/${build.id}" }
   ],
 
   "output": {
@@ -134,7 +128,9 @@
     "fallback": []
   },
 
+
   "archivePath": "archive/${build.id}",
+
   "ignore": ["(^|/)CVS(/?$|/.*?$)"],
-  "id": "f9597cf3-f83c-44dc-8296-f613ef60bcc7"
+  "id": "b8574668-01fb-4a7f-8bee-76b888ea95ad"
 }

@@ -1,0 +1,23 @@
+{
+  "leaf": true,
+  "children": [
+    {
+      "text": "Home",
+      "iconCls": "x-fa fa-home",
+      "xtype": "homeview",
+      "leaf": true
+    },
+    {
+      "text": "Category",
+      "iconCls": "x-fa fa-align-left",
+      "xtype": "categoryview",
+      "leaf": true
+    },
+    {
+      "text": "Post",
+      "iconCls": "x-fa fa-portrait",
+      "xtype": "mainpostview",
+      "leaf": true
+    }
+  ]
+}
