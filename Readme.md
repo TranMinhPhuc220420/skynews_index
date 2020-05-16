@@ -1,3 +1,3 @@
-# itunesApple application
+# Sky News application
 
 moderndesktopminimal template
