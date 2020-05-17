@@ -79,6 +79,7 @@ Ext.define("SkyNewsIndex.view.category.CategoryViewController", {
 
     Ext.create({
       xtype: "dialog",
+      id: "dialog-main",
       with: 1000,
       height: 290,
       items: [
@@ -143,6 +144,57 @@ Ext.define("SkyNewsIndex.view.category.CategoryViewController", {
               required: true,
             },
           ],
+        },
+        {
+          xtype: "button",
+          text: "Delete",
+          cls: "btn btn-danger",
+
+          handler: function () {
+            Ext.create({
+              xtype: "dialog",
+              title: "Delete",
+              html: "Are you sure you want to delete",
+              buttons: {
+                ok: function () {
+                  this.up("dialog").destroy();
+
+                  Ext.Ajax.request({
+                    method: "POST",
+                    url: "http://localhost:8080/deleteCategory",
+                    params: {
+                      id: categorySelected.id,
+                    },
+                    cors: true,
+                    useDefaultXhrHeader: false,
+
+                    success: function (response) {
+                      Ext.getCmp("dialog-main").destroy();
+                      let notification = response.responseText;
+                      if (notification !== "Delete complete") {
+                        // categorySelected.name = nameCategoryEdit;
+                        gridCategory.refresh();
+                      }
+
+                      // Show notification result add category
+                      Ext.create({
+                        xtype: "dialog",
+                        html: notification,
+                        buttons: {
+                          ok: function () {
+                            this.up("dialog").destroy();
+                          },
+                        },
+                      }).show();
+                    },
+                  });
+                },
+                cancel: function () {
+                  this.up("dialog").destroy();
+                },
+              },
+            }).show();
+          },
         },
       ],
     }).show();

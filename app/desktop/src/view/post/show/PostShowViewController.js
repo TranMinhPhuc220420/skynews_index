@@ -32,6 +32,7 @@ Ext.define("SkyNewsIndex.view.post.show.PostShowViewController", {
             submit: function () {
               var formEdit = Ext.getCmp("edit-form").getValues();
               this.up("dialog").destroy();
+              console.log(formEdit);
 
               Ext.Ajax.request({
                 method: "POST",
@@ -53,6 +54,7 @@ Ext.define("SkyNewsIndex.view.post.show.PostShowViewController", {
                     postSelected.title = formEdit.title;
                     postSelected.sapo = formEdit.sapo;
                     postSelected.category_id = formEdit.category_id;
+                    // postSelected.category_id = formEdit.categoryName;
                     console.log("Update stored");
 
                     postSelected.description = formEdit.description;
