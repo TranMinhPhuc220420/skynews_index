@@ -5,43 +5,42 @@ Ext.define("SkyNewsIndex.view.post.formAdd.PostShowView", {
 
   requires: [
     "SkyNewsIndex.view.post.show.PostShowViewModel",
+    "SkyNewsIndex.view.post.show.PostShowViewModel",
     "SkyNewsIndex.view.post.show.PostShowViewController",
   ],
-  viewModel: "postshowviewmodel",
+
+  // viewModel
+  viewModel: {
+    type: "postshowviewmodel",
+  },
+
+  // controller
   controller: "postshowviewcontroller",
 
+  // ------------------------ TOOL BAR  ------------------------
   tbar: {
     items: [
       {
-        text: "button",
-        text: "Chính Trị",
-      },
-      {
-        xtype: "button",
-        text: "Kinh Tế",
-      },
-      {
-        xtype: "button",
-        text: "Thế Giới",
-      },
-      {
-        xtype: "button",
-        text: "Xã Hội",
-      },
-      {
-        xtype: "button",
-        text: "Y Tế",
-      },
-      // begin using the right-justified button container
-      "->", // same as { xtype: 'tbfill' }
-      {
-        xtype: "textfield",
-        name: "field1",
-        label: "Search by title",
+        xtype: "dataview",
+        id: "tbar-show",
+        layout: "hbox",
+        viewModel: {
+          type: "categoryviewmodel",
+        },
+        bind: {
+          store: "{categoryStore}",
+        },
+        itemTpl: `<button class="btn btn-default">{name}</button>`,
+
+        // add event select category
+        listeners: {
+          itemTap: "onSelectCategory",
+        },
       },
     ],
   },
 
+  // ------------------------ ITEMS  ------------------------
   items: [
     {
       xtype: "dataview",

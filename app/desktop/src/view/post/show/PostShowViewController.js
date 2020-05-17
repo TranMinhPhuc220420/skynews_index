@@ -92,7 +92,7 @@ Ext.define("SkyNewsIndex.view.post.show.PostShowViewController", {
                 type: "categorystore",
               },
 
-              label: "Category",
+              label: "Category: " + postSelected.categoryName,
               name: "category_id",
               id: "category-id-show",
               queryMode: "local",
@@ -125,5 +125,13 @@ Ext.define("SkyNewsIndex.view.post.show.PostShowViewController", {
         },
       ],
     }).show();
+  },
+
+  onSelectCategory: function (view, index, record, data) {
+    let category_id_select = data.id;
+    const store = this.getView().getViewModel().getStore("postStore");
+    store.getProxy().url = `http://localhost:8080/post/category/${category_id_select}/json`;
+    console.log(category_id_select);
+    store.load();
   },
 });
