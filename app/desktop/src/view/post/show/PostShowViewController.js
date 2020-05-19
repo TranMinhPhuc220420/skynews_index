@@ -4,6 +4,7 @@ Ext.define("SkyNewsIndex.view.post.show.PostShowViewController", {
 
   onSelectPost: function (view, index, record, data) {
     const postSelected = data.data;
+    const store = this.getView().getViewModel().getStore("postStore");
     var gridPost = Ext.getCmp("dataview-post");
 
     Ext.create({
@@ -24,57 +25,6 @@ Ext.define("SkyNewsIndex.view.post.show.PostShowViewController", {
           xtype: "formpanel",
           id: "edit-form",
           fullscreen: true,
-
-          buttons: {
-            cancel: function () {
-              this.up("dialog").destroy();
-            },
-            submit: function () {
-              var formEdit = Ext.getCmp("edit-form").getValues();
-              this.up("dialog").destroy();
-              console.log(formEdit);
-
-              Ext.Ajax.request({
-                method: "POST",
-                url: "http://localhost:8080/editPost",
-                params: {
-                  id: postSelected.id,
-                  title: formEdit.title,
-                  category_id: formEdit.category_id,
-                  sapo: formEdit.sapo,
-                  description: formEdit.description,
-                },
-                cors: true,
-                useDefaultXhrHeader: false,
-
-                success: function (response) {
-                  let notification = response.responseText;
-
-                  if (notification === "Complete") {
-                    postSelected.title = formEdit.title;
-                    postSelected.sapo = formEdit.sapo;
-                    postSelected.category_id = formEdit.category_id;
-                    // postSelected.category_id = formEdit.categoryName;
-                    console.log("Update stored");
-
-                    postSelected.description = formEdit.description;
-                    gridPost.refresh();
-                  }
-
-                  // Show notification result add category
-                  Ext.create({
-                    xtype: "dialog",
-                    html: notification,
-                    buttons: {
-                      ok: function () {
-                        this.up("dialog").destroy();
-                      },
-                    },
-                  }).show();
-                },
-              });
-            },
-          },
 
           items: [
             {
@@ -117,9 +67,112 @@ Ext.define("SkyNewsIndex.view.post.show.PostShowViewController", {
             },
             {
               xtype: "img",
-              src: postSelected.image,
+              src: `http://localhost:8080/image/post/${postSelected.image}`,
               width: "100%",
               height: "100%",
+            },
+            {
+              xtype: "container",
+              defaultType: "button",
+              cls: "gr-btn-dialog",
+              layout: "hbox",
+
+              items: [
+                {
+                  text: "Delete",
+                  cls: "btn-dialog btn-danger",
+
+                  handler: function () {
+                    this.up("dialog").destroy();
+                    Ext.create({
+                      xtype: "dialog",
+                      title: "Delete Post",
+                      html: "Are you sure you want to delete this post?",
+
+                      buttons: {
+                        ok: function () {
+                          this.up("dialog").destroy();
+                          let idPostDelete = postSelected.id;
+
+                          Ext.Ajax.request({
+                            method: "POST",
+                            url: "http://localhost:8080/deletePost",
+                            params: {
+                              post_id: idPostDelete,
+                            },
+                            cors: true,
+                            useDefaultXhrHeader: false,
+
+                            // Notification
+                            success: function (response) {
+                              let notification = response.responseText;
+                              if (notification == "Complete") {
+                                store.removeAt(
+                                  store.find("id", postSelected.id)
+                                );
+                                gridPost.refresh();
+                              }
+
+                              // Show notification result delete post
+                              Ext.Msg.alert("Notification", notification);
+                            },
+                          });
+                        },
+                        cancel: function () {
+                          this.up("dialog").destroy();
+                        },
+                      },
+                    }).show();
+                  },
+                },
+                {
+                  text: "Save",
+                  cls: "btn-dialog btn-success",
+                  handler: function () {
+                    var formEdit = Ext.getCmp("edit-form").getValues();
+                    this.up("dialog").destroy();
+
+                    // set category_id
+                    if (formEdit.category_id == null) {
+                      formEdit.category_id = postSelected.category_id;
+                    }
+                    Ext.Ajax.request({
+                      method: "POST",
+                      url: "http://localhost:8080/editPost",
+                      params: {
+                        id: postSelected.id,
+                        title: formEdit.title,
+                        category_id: formEdit.category_id,
+                        sapo: formEdit.sapo,
+                        description: formEdit.description,
+                      },
+                      cors: true,
+                      useDefaultXhrHeader: false,
+
+                      success: function (response) {
+                        let notification = response.responseText;
+
+                        if (notification === "Complete") {
+                          postSelected.title = formEdit.title;
+                          postSelected.sapo = formEdit.sapo;
+                          postSelected.category_id = formEdit.category_id;
+                          postSelected.description = formEdit.description;
+                          gridPost.refresh();
+                        }
+
+                        // Show notification result edit post
+                        Ext.Msg.alert("Notification", notification);
+                      },
+                    });
+                  },
+                },
+                {
+                  text: "Cancel",
+                  handler: function () {
+                    this.up("dialog").destroy();
+                  },
+                },
+              ],
             },
           ],
         },
@@ -128,10 +181,19 @@ Ext.define("SkyNewsIndex.view.post.show.PostShowViewController", {
   },
 
   onSelectCategory: function (view, index, record, data) {
-    let category_id_select = data.id;
     const store = this.getView().getViewModel().getStore("postStore");
-    store.getProxy().url = `http://localhost:8080/post/category/${category_id_select}/json`;
-    console.log(category_id_select);
+    let url = "";
+
+    if (view._value === "") {
+      url = `http://localhost:8080/post/json`;
+    } else {
+      let category_id_select = data.id;
+      url = `http://localhost:8080/post/category/${category_id_select}/json`;
+    }
+
+    store.getProxy().url = url;
     store.load();
   },
+
+  searchPostByTitle: function (view, index, record, data) {},
 });

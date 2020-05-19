@@ -1,11 +1,11 @@
 Ext.define("SkyNewsIndex.view.category.MainPostView", {
   extend: "Ext.TabPanel",
   alias: "widget.mainpostview",
-  // requires: ["SkyNewsIndex.view.category.PostViewModel"],
 
-  // controller: "postviewcontroller",
-  // viewModel: "postviewmodel",
-
+  requires: [
+    "SkyNewsIndex.view.post.formAdd.AddPostView",
+    "SkyNewsIndex.view.post.formAdd.PostShowView",
+  ],
   tabBarPosition: "right",
 
   items: [

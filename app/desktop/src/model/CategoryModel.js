@@ -1,6 +1,8 @@
 Ext.define("SkyNewsIndex.model.CategoryModel", {
   extend: "Ext.data.Model",
   alias: "model.categorymodel",
+
+  requires: ["Ext.data.proxy.Rest"],
   fields: [
     {
       name: "id",
@@ -21,5 +23,7 @@ Ext.define("SkyNewsIndex.model.CategoryModel", {
     reader: {
       type: "json",
     },
+    cors: true,
+    useDefaultXhrHeader: false,
   },
 });

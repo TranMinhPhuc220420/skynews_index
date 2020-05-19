@@ -21,6 +21,12 @@ Ext.define("SkyNewsIndex.view.post.formAdd.PostShowView", {
   tbar: {
     items: [
       {
+        xtype: "button",
+        text: "All",
+        value: "",
+        handler: "onSelectCategory",
+      },
+      {
         xtype: "dataview",
         id: "tbar-show",
         layout: "hbox",
@@ -37,6 +43,14 @@ Ext.define("SkyNewsIndex.view.post.formAdd.PostShowView", {
           itemTap: "onSelectCategory",
         },
       },
+      '->',
+      {
+        xtype: "textfield",
+        label: "Search by title post",
+        listeners: { 
+          change: "searchPostByTitle"
+        }
+      },
     ],
   },
 
@@ -51,7 +65,7 @@ Ext.define("SkyNewsIndex.view.post.formAdd.PostShowView", {
 
       itemTpl: `
       <div class="media my-md-5">
-        <img class="mr-3" src="{image}" alt="image of {title}">
+        <img class="mr-3" src="http://localhost:8080/image/post/{image}" alt="image of {title}">
         <div class="media-body">
           <h3 class="mt-0">{title}</h3>
           <h5 class="mt-0">{categoryName}</h5>

@@ -2,6 +2,11 @@ Ext.define("itunesApple.view.main.MainView", {
   extend: "Ext.Container",
   xtype: "mainview",
 
+  requires: [
+    "templateExt.view.main.center.CenterView",
+    "itunesApple.view.main.nav.NavView",
+  ],
+
   controller: "mainviewcontroller",
   viewModel: {
     type: "mainviewmodel",
@@ -15,7 +20,7 @@ Ext.define("itunesApple.view.main.MainView", {
       xtype: "navview",
       reference: "navview",
       docker: "lef",
-      flex: 0.2,
+      flex: 0.3,
       listeners: { select: "onMenuViewSelectionChange" },
     },
     {

@@ -13,13 +13,16 @@ Ext.define("itunesApple.view.main.MainViewController", {
   },
 
   onMenuViewSelectionChange: function (tree, node) {
-    let panelRemove = this.getView().down("centerview").down();
-    this.getView().down("centerview").remove(panelRemove);
-
     if (node == null) {
       return;
     }
-    var vm = this.getViewModel();
+
+    // if not select this panel so remove 
+    let panelRemove = this.getView().down("centerview").down();
+    if (node.data.xtype != panelRemove.xtype) {
+      this.getView().down("centerview").remove(panelRemove);
+    }
+    
     if (node.get("xtype") != undefined) {
       this.redirectTo(node.get("xtype"));
     }

@@ -3,7 +3,10 @@ Ext.define("SkyNewsIndex.view.category.CategoryView", {
   alias: "widget.categoryview",
   title: "Category",
 
-  requires: ["SkyNewsIndex.view.category.CategoryViewModel"],
+  requires: [
+    "SkyNewsIndex.view.category.CategoryViewModel",
+    "SkyNewsIndex.view.category.CategoryViewController",
+  ],
 
   controller: "categoryviewcontroller",
   viewModel: "categoryviewmodel",

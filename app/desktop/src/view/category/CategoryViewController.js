@@ -74,6 +74,7 @@ Ext.define("SkyNewsIndex.view.category.CategoryViewController", {
   },
 
   onSelectCategory: function (view, index, record, data) {
+    const store = this.getView().getViewModel().getStore("categoryStore");
     categorySelected = data.data;
     var gridCategory = Ext.getCmp("grid");
 
@@ -150,15 +151,17 @@ Ext.define("SkyNewsIndex.view.category.CategoryViewController", {
           text: "Delete",
           cls: "btn btn-danger",
 
+          // Delete category selected
           handler: function () {
             Ext.create({
               xtype: "dialog",
               title: "Delete",
               html: "Are you sure you want to delete",
               buttons: {
+                // Sub delete category
                 ok: function () {
                   this.up("dialog").destroy();
-
+                  
                   Ext.Ajax.request({
                     method: "POST",
                     url: "http://localhost:8080/deleteCategory",
@@ -171,8 +174,10 @@ Ext.define("SkyNewsIndex.view.category.CategoryViewController", {
                     success: function (response) {
                       Ext.getCmp("dialog-main").destroy();
                       let notification = response.responseText;
-                      if (notification !== "Delete complete") {
-                        // categorySelected.name = nameCategoryEdit;
+
+                      // Check and remove item category in store
+                      if (notification === "Delete complete") {
+                        store.removeAt(store.find("id", categorySelected.id));
                         gridCategory.refresh();
                       }
 

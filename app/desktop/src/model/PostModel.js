@@ -1,6 +1,7 @@
 Ext.define("SkyNewsIndex.model.PostModel", {
   extend: "Ext.data.Model",
   alias: "model.postmodel",
+  requires: ["Ext.data.proxy.Rest"],
   fields: [
     {
       name: "id",
@@ -56,5 +57,7 @@ Ext.define("SkyNewsIndex.model.PostModel", {
     reader: {
       type: "json",
     },
+    cors: true,
+    useDefaultXhrHeader: false,
   },
 });

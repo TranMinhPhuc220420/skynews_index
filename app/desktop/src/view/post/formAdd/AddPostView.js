@@ -10,15 +10,18 @@ Ext.define("SkyNewsIndex.view.post.formAdd.AddPostView", {
     "Ext.field.Url",
     "Ext.field.Select",
     "Ext.field.Hidden",
+    "SkyNewsIndex.view.post.formAdd.AddPostViewController",
   ],
-  // requires: ["SkyNewsIndex.view.category.PostViewModel"],
 
-  // controller: "postviewcontroller",
+  controller: "addpostviewcontroller",
   viewModel: "categoryviewmodel",
 
   items: [
     {
       xtype: "formpanel",
+      cors: true,
+      useDefaultXhrHeader: false,
+
       items: [
         {
           xtype: "textfield",
@@ -55,52 +58,26 @@ Ext.define("SkyNewsIndex.view.post.formAdd.AddPostView", {
           name: "description",
           id: "description",
         },
-      ],
 
-      buttons: [
         {
+          xtype: "filefield",
+          name: "image",
+          id: "image-post",
+          label: "Image post",
+        },
+
+        {
+          xtype: "button",
           text: "Add New Post",
-          cls: "btn-primary",
-          handler: function (e) {
-            var form = this.up("formpanel").getValues();
-
-            // Ajax execute the add new post
-            Ext.Ajax.request({
-              method: "POST",
-              url: "http://localhost:8080/addPost",
-              params: {
-                title: form.title,
-                category_id: form.category_id,
-                sapo: form.sapo,
-                description: form.description,
-              },
-              cors: true,
-              useDefaultXhrHeader: false,
-
-              success: function (response) {
-                let notification = response.responseText;
-
-                Ext.getCmp("title").setValue(null);
-                Ext.getCmp("sapo").setValue(null);
-                Ext.getCmp("category_id").setValue(null);
-                Ext.getCmp("description").setValue(null);
-
-                // Show notification result add category
-                Ext.create({
-                  xtype: "dialog",
-                  html: notification,
-                  buttons: {
-                    ok: function () {
-                      this.up("dialog").destroy();
-                    },
-                  },
-                }).show();
-              },
-            });
-          },
+          cls: "btn-primary btn-submit",
+          handler: "onPostNewPost",
+        },
+        {
+          xtype: "img",
+          id: "image-review",
+          src: "",
         },
       ],
     },
-    {},
   ],
 });
