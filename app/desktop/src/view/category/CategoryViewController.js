@@ -46,15 +46,7 @@ Ext.define("SkyNewsIndex.view.category.CategoryViewController", {
                   }
 
                   // Show notification result add category
-                  Ext.create({
-                    xtype: "dialog",
-                    html: notification,
-                    buttons: {
-                      ok: function () {
-                        this.up("dialog").destroy();
-                      },
-                    },
-                  }).show();
+                  Ext.Msg.alert("Notification", notification);
                 },
               });
             },
@@ -123,15 +115,7 @@ Ext.define("SkyNewsIndex.view.category.CategoryViewController", {
                   }
 
                   // Show notification result add category
-                  Ext.create({
-                    xtype: "dialog",
-                    html: notification,
-                    buttons: {
-                      ok: function () {
-                        this.up("dialog").destroy();
-                      },
-                    },
-                  }).show();
+                  Ext.Msg.alert("Notification", notification);
                 },
               });
             },
@@ -182,15 +166,7 @@ Ext.define("SkyNewsIndex.view.category.CategoryViewController", {
                       }
 
                       // Show notification result add category
-                      Ext.create({
-                        xtype: "dialog",
-                        html: notification,
-                        buttons: {
-                          ok: function () {
-                            this.up("dialog").destroy();
-                          },
-                        },
-                      }).show();
+                      Ext.Msg.alert("Notification", notification);
                     },
                   });
                 },

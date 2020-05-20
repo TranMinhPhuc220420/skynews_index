@@ -67,7 +67,7 @@ Ext.define("SkyNewsIndex.view.post.show.PostShowViewController", {
             },
             {
               xtype: "img",
-              src: `http://localhost:8080/image/post/${postSelected.image}`,
+              src: `http://localhost:8080/view_photo/${postSelected.image}`,
               width: "100%",
               height: "100%",
             },
@@ -195,5 +195,17 @@ Ext.define("SkyNewsIndex.view.post.show.PostShowViewController", {
     store.load();
   },
 
-  searchPostByTitle: function (view, index, record, data) {},
+  searchPostByTitle: function (view, index, keywords, data) {
+    // const store = this.getView().getViewModel().getStore("postStore");
+    // let url = "";
+
+    // if (keywords == null) {
+    //   url = `http://localhost:8080/post/json`;
+    // } else {
+    //   url = `http://localhost:8080/post/title/${keywords}/json`;
+    // }
+
+    // store.getProxy().url = url;
+    // store.load();
+  },
 });
