@@ -1,0 +1,44 @@
+.content-post-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .post-image {
+    height: 60vh;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .post-body {
+    padding: 0 40px;
+    color: rgb(20, 20, 20);
+    margin: 50px 0;
+
+    h2 {
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .sapo {
+      font-size: 1.6rem;
+    }
+
+    .description {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.list-comment {
+  padding: 0 50px;
+  background-color: #ddd;
+
+  .media {
+    color: black;
+    border: 1px solid rgb(170, 170, 170);
+  }
+}
+
+.btn-submit {
+  color: white;
+}
